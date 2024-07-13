@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Signature Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #ffcc00;
+            border: none;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .buttonOutlined {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .preview {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Email Signature Generator</h1>
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Full Name">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" placeholder="Job Title">
+        <label for="cellPhone">Cell Phone Number (Optional)</label>
+        <input type="text" id="cellPhone" placeholder="Optional">
+        <label for="hubSpot">HubSpot Meeting Link (Optional)</label>
+        <input type="text" id="hubSpot" placeholder="Optional">
+        <div class="preview" id="longSignaturePreview"></div>
+        <button class="button" onclick="copySignature('longSignaturePreview')">Copy Long Signature</button>
+        <button class="buttonOutlined" onclick="copyHtml('longSignaturePreview')">Copy HTML</button>
+        <div class="preview" id="shortSignaturePreview"></div>
+        <button class="button" onclick="copySignature('shortSignaturePreview')">Copy Short Signature</button>
+        <button class="buttonOutlined" onclick="copyHtml('shortSignaturePreview')">Copy HTML</button>
+    </div>
+
+    <script>
+		const fullNameInput = document.getElementById('fullName');
+		const jobTitleInput = document.getElementById('jobTitle');
+		const cellPhoneInput = document.getElementById('cellPhone');
+		const hubSpotInput = document.getElementById('hubSpot');
+
+		// Add these lines after the const cellPhoneInput initialization
+		cellPhoneInput.addEventListener('blur', formatPhoneNumber);
+		cellPhoneInput.addEventListener('input', formatPhoneNumber);
+
+		function formatPhoneNumber() {
+			const phone = cellPhoneInput.value.replace(/\D/g, ''); // Remove all non-digit characters
+			if (phone.length === 10) {
+				cellPhoneInput.value = phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1.$2.$3');
+			}
+		}
+
+        const longSignature = `
+<html><head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    </head>
+    <body>
+    <table cellpadding="0" cellspacing="0"><tbody><tr><td style="padding-top: 30px;">
+    <table cellspacing="0" cellpadding="0" border="0" style="text-align: left">
+        <tbody><tr><td width="285" align="left" height="15">
+            <font face="Helvetica, Arial, sans-serif">
+                <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f; letter-spacing: 0.015em; line-height: 15px;">
+                    <div style="height: 14px;"><strong>Full Name</strong></div>
+                </span>
+            </font></td></tr>
+          <tr><td width="285" align="left" height="16">
+            <font face="Helvetica, Arial, sans-serif">
+                <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #e3a127; letter-spacing: 0.045em; line-height: 16px">
+                    <div style="height: 16px;">Job Title | Lemonlight</div>
+                </span>
+            </font></td></tr>
+            <tr><td width="285" height="8" style="font-size: 0; line-height: 8px; mso-line-heightrule:exactly;"></td></tr>
+       <tr><td width="285" align="left" height="18">
+          <font face="Helvetica, Arial, sans-serif">
+            <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f;  letter-spacing: 0.025em; line-height: 12px;">
+            <div style="height: 14px"><a style="text-decoration:none;"></a><span>o </span><a style="text-decoration:none;"><span style="color: #0066cc;">310.402.0275</span></a></div></span></font></td></tr>
+                <tr><td width="285" height="6" style="font-size: 0; line-height: 6px; mso-line-heightrule:exactly;"></td></tr>
+                 <tr><td width="285" align="left" height="14">
+          <font face="Helvetica, Arial, sans-serif"><span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f;  letter-spacing: 0.025em; line-height: 14px; text-decoration-line: none; ">
+              <div style="height: 12px"><a href="https://g.page/Lemonlight?share" target="_blank" style="text-decoration: none;color: #1d1d1f; text-decoration-line: none;">226 S Glasgow Ave, Inglewood, CA 90301</a></div> </span></font>
+            </td></tr>
+          <tr><td width="285" align="left" height="20">
+          <font face="Helvetica, Arial, sans-serif">
+            <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f;  letter-spacing: 0.025em; line-height: 14px;">
+                <div style="height: 14px"><a href="https://www.lemonlight.com" style="text-decoration:none; color: #1d1d1f">lemonlight.com</a></div></span></font></td></tr>
+                <tr><td width="285" height="14" style="font-size: 0; line-height: 14px; mso-line-heightrule:exactly;"></td></tr><tr>
+                        <td align="left" valign="top" width="285" height="1" style="background-color: #d2d2d7; border-collapse:collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; mso-line-height-rule: exactly; line-height: 1px;"><!--[if gte mso 15]>&nbsp;<![endif]--></td>
+                </tr>
+                <tr><td width="285" height="14" style="font-size: 0; line-height: 14px; mso-line-heightrule:exactly;"></td></tr>
+                <tr><td>
+            <table cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+                <td width="23" valign="middle" style="padding-right: 7px;"><a href="https://www.facebook.com/lemonlightmedia/"><img src="https://f.hubspotusercontent00.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/Signatures-2021/facebook.png?noresize" width="23" alt=""></a></td>
+                <td width="23" valign="middle" style="padding-right: 7px;"><a href="https://instagram.com/lemonlightmedia"><img src="https://f.hubspotusercontent00.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/Signatures-2021/instagram.png?noresize" width="23" alt=""></a></td>
+                <td width="23" valign="middle" style="padding-right: 7px;"><a href="https://www.youtube.com/lemonlightmedia"><img src="https://f.hubspotusercontent00.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/Signatures-2021/youtube.png?noresize" width="23" alt=""></a></td>
+                <td width="23" valign="middle" style="padding-right: 14px;"><a href="https://www.linkedin.com/company/lemonlight-media/"><img src="https://f.hubspotusercontent00.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/Signatures-2021/linkedin.png?noresize" width="23" alt=""></a></td>
+                
+                  <td width="23" valign="middle"><a href="" target="_blank"><img src="https://f.hubspotusercontent00.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/Signatures-2021/schedule-a-call.png?noresize" width="120" alt="Schedule a Call"></a></td>
+                
+              </tr></tbody></table>
+            </td></tr>
+    <tr><td style="padding-top: 22px;">
+        <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td>
+            <a href="https://www.inc.com/profile/lemonlight"><img src="https://cdn2.hubspot.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/1.png?noresize" width="51"></a></td>
+            <td width="15"></td>
+            <td>
+            <a href="https://www.inc.com/profile/lemonlight"><img src="https://cdn2.hubspot.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/2.png?noresize" width="48"></a></td>
+            <td width="20"></td>
+            <td>
+            <a href="https://www.entrepreneur.com/company/lemonlight"><img src="https://cdn2.hubspot.net/hubfs/1697659/Jorge_Images/Shared_Images/email_signatures/3.png?noresize" height="48"></a></td></tr>
+        </tbody></table>
+        </td></tr>
+         </tbody></table>
+    </td></tr>
+    </tbody></table>
+    </body></html>
+`;
+        const shortSignature = `
+<html><head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    </head>
+    <body>
+    <table cellpadding="0" cellspacing="0"><tbody><tr><td style="padding-top: 30px;">
+          <table cellspacing="0" cellpadding="0" border="0" style="text-align: left">
+          <tbody><tr><td width="285" align="left" height="15">
+          <font face="Helvetica, Arial, sans-serif">
+            <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f; letter-spacing: 0.015em; line-height: 15px;">
+              <div style="height: 14px;"><strong>Full Name</strong></div>
+            </span>
+            </font></td></tr>
+          <tr><td width="285" align="left" height="16">
+          <font face="Helvetica, Arial, sans-serif">
+            <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #e3a127; letter-spacing: 0.045em; line-height: 16px">
+              <div style="height: 16px;">Job Title | Lemonlight</div>
+            </span>
+            </font></td></tr>
+          <tr><td width="285" height="8" style="font-size: 0; line-height: 8px; mso-line-heightrule:exactly;"></td></tr>
+         <tr><td width="285" align="left" height="18">
+          <font face="Helvetica, Arial, sans-serif">
+          <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f;  letter-spacing: 0.025em; line-height: 12px;">
+          <div style="height: 14px"><a style="text-decoration:none;"></a><span>o </span><a style="text-decoration:none;"><span style="color: #0066cc;">310.402.0275</span></a></div></span></font></td></tr>
+            <tr><td width="285" align="left" height="14">
+          <font face="Helvetica, Arial, sans-serif">
+          <span style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #1d1d1f;  letter-spacing: 0.025em; line-height: 14px;">
+            <div style="height: 14px"><a href="https://www.lemonlight.com" style="text-decoration:none; color: #1d1d1f">lemonlight.com</a></div></span></font></td></tr>    
+            <tr><td width="285" height="14" style="font-size: 0; line-height: 14px; mso-line-heightrule:exactly;"></td></tr>
+            
+           </tbody></table>
+      </td></tr>
+      </tbody></table>
+    </body></html>
+`;
+
+        fullNameInput.addEventListener('input', updateSignatures);
+        jobTitleInput.addEventListener('input', updateSignatures);
+        cellPhoneInput.addEventListener('input', updateSignatures);
+        hubSpotInput.addEventListener('input', updateSignatures);
+
+        function updateSignatures() {
+            const fullName = fullNameInput.value;
+            const jobTitle = jobTitleInput.value;
+            const cellPhone = cellPhoneInput.value;
+            const hubSpot = hubSpotInput.value;
+
+            const updatedLongSignature = longSignature
+                .replace('Full Name', fullName || 'Full Name')
+                .replace('Job Title | Lemonlight', jobTitle ? `${jobTitle} | Lemonlight` : 'Job Title | Lemonlight')
+                .replace('<a style="text-decoration:none;"></a>', cellPhone ? `<a style="text-decoration:none;">${cellPhone}&nbsp;&nbsp;&nbsp;</a>` : '<a style="text-decoration:none;"></a>')
+                .replace('<a href="" target="_blank">', hubSpot ? `<a href="${hubSpot}" target="_blank">` : '<a href="" target="_blank">');
+
+            const updatedShortSignature = shortSignature
+                .replace('Full Name', fullName || 'Full Name')
+                .replace('Job Title | Lemonlight', jobTitle ? `${jobTitle} | Lemonlight` : 'Job Title | Lemonlight')
+                .replace('<a style="text-decoration:none;"></a>', cellPhone ? `<a style="text-decoration:none;">${cellPhone}&nbsp;&nbsp;&nbsp;</a>` : '<a style="text-decoration:none;"></a>');
+
+            document.getElementById('longSignaturePreview').innerHTML = updatedLongSignature;
+            document.getElementById('shortSignaturePreview').innerHTML = updatedShortSignature;
+        }
+
+        function copySignature(elementId) {
+            const element = document.getElementById(elementId);
+            const range = document.createRange();
+            range.selectNode(element);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Signature copied to clipboard!');
+        }
+
+        function copyHtml(elementId) {
+            const element = document.getElementById(elementId);
+            const html = element.innerHTML.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
+            const textarea = document.createElement('textarea');
+            textarea.innerHTML = html;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('HTML copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
